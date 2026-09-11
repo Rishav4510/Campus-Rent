@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign up — CampusRent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="register">
+<div id="navbar" class="navbar"></div>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="eyebrow">Join campusrent</div>
+    <h1>Create your account</h1>
+    <p class="sub">Every account can both list items and rent from others.</p>
+
+    <div id="alertBox"></div>
+
+    <form id="registerForm">
+      <div class="form-row">
+        <label for="name">Full name</label>
+        <input type="text" id="name" placeholder="Rishav Kumar" required />
+      </div>
+      <div class="form-row">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="you@campus.edu" required />
+      </div>
+      <div class="form-row">
+        <label for="hostel">Hostel / block <span style="text-transform:none; font-weight:400;">(optional)</span></label>
+        <input type="text" id="hostel" placeholder="Block C" />
+      </div>
+      <div class="form-row">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="At least 6 characters" required minlength="6" />
+      </div>
+      <button type="submit" class="btn btn-mustard btn-block" id="submitBtn">Create account</button>
+    </form>
+
+    <p class="form-note">Already have an account? <a href="login.html">Log in</a></p>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script>
+  if (isLoggedIn()) window.location.href = "items.html";
+
+  const form = document.getElementById("registerForm");
+  const alertBox = document.getElementById("alertBox");
+  const submitBtn = document.getElementById("submitBtn");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    alertBox.innerHTML = "";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Creating account…";
+    try {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const hostel = document.getElementById("hostel").value.trim();
+      const password = document.getElementById("password").value;
+
+      const data = await apiFetch("/auth/register", {
+        method: "POST",
+        body: JSON.stringify({ name, email, password, hostel }),
+      });
+      setSession({ _id: data._id, name: data.name, email: data.email, role: data.role }, data.token);
+      toast(`Account created — welcome, ${data.name.split(" ")[0]}`);
+      setTimeout(() => (window.location.href = "items.html"), 300);
+    } catch (err) {
+      alertBox.innerHTML = `<div class="alert alert-error">${err.message}</div>`;
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Create account";
+    }
+  });
+</script>
+</body>
+</html>

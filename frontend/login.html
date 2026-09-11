@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Log in — CampusRent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="login">
+<div id="navbar" class="navbar"></div>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="eyebrow">Welcome back</div>
+    <h1>Log in</h1>
+    <p class="sub">Enter your campus email and password to continue.</p>
+
+    <div id="alertBox"></div>
+
+    <form id="loginForm">
+      <div class="form-row">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="you@campus.edu" required />
+      </div>
+      <div class="form-row">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••" required />
+      </div>
+      <button type="submit" class="btn btn-mustard btn-block" id="submitBtn">Log in</button>
+    </form>
+
+    <p class="form-note">New to CampusRent? <a href="register.html">Create an account</a></p>
+    <p class="form-note" style="color:#5B6472;">Demo admin: admin@campusrent.com / admin123 (after running the seed script)</p>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script>
+  if (isLoggedIn()) window.location.href = "items.html";
+
+  const form = document.getElementById("loginForm");
+  const alertBox = document.getElementById("alertBox");
+  const submitBtn = document.getElementById("submitBtn");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    alertBox.innerHTML = "";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Logging in…";
+    try {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const data = await apiFetch("/auth/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      });
+      setSession({ _id: data._id, name: data.name, email: data.email, role: data.role }, data.token);
+      toast(`Welcome back, ${data.name.split(" ")[0]}`);
+      setTimeout(() => (window.location.href = "items.html"), 300);
+    } catch (err) {
+      alertBox.innerHTML = `<div class="alert alert-error">${err.message}</div>`;
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Log in";
+    }
+  });
+</script>
+</body>
+</html>

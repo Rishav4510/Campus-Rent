@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Items — CampusRent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="my-items">
+<div id="navbar" class="navbar"></div>
+
+<div class="container page-head">
+  <div class="eyebrow">Owner dashboard</div>
+  <h1>My items</h1>
+  <p>Manage what you've listed, and respond to rental requests from other students.</p>
+</div>
+
+<div class="container" style="padding-bottom:64px;">
+  <div class="dash-tabs">
+    <div class="dash-tab active" data-tab="items">My Items</div>
+    <div class="dash-tab" data-tab="requests">Rental Requests <span id="pendingBadge"></span></div>
+  </div>
+
+  <div id="tab-items">
+    <div style="display:flex; justify-content:flex-end; margin-bottom:16px;">
+      <a href="add-item.html" class="btn btn-mustard btn-sm">+ List a new item</a>
+    </div>
+    <div class="item-grid" id="myItemsGrid">
+      <div class="loader">Loading your items…</div>
+    </div>
+  </div>
+
+  <div id="tab-requests" style="display:none;">
+    <div class="panel" id="requestsPanel">
+      <div class="loader">Loading requests…</div>
+    </div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/my-items.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Browse Items — CampusRent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="items">
+<div id="navbar" class="navbar"></div>
+
+<div class="container page-head">
+  <div class="eyebrow">The full catalog</div>
+  <h1>Browse items</h1>
+  <p>Search by name, filter by category, or set a daily price ceiling.</p>
+</div>
+
+<div class="container">
+  <form class="filters-bar" id="filterForm">
+    <div class="field">
+      <label for="search">Search</label>
+      <input type="text" id="search" placeholder="calculator, lab coat, cycle…" />
+    </div>
+    <div class="field">
+      <label for="category">Category</label>
+      <select id="category">
+        <option value="All">All categories</option>
+        <option>Electronics</option>
+        <option>Books</option>
+        <option>Lab Equipment</option>
+        <option>Sports</option>
+        <option>Cycles</option>
+        <option>Instruments</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="maxPrice">Max price / day</label>
+      <input type="number" id="maxPrice" placeholder="₹500" min="0" />
+    </div>
+    <button type="submit" class="btn btn-mustard">Apply</button>
+  </form>
+
+  <div class="section-head">
+    <h2 id="resultsHeading">All items</h2>
+    <span class="mono" style="font-size:12.5px; color:#5B6472;" id="resultsCount"></span>
+  </div>
+
+  <div class="item-grid" id="itemGrid">
+    <div class="loader">Loading items…</div>
+  </div>
+
+  <div style="display:flex; justify-content:center; gap:10px; margin-top:32px;" id="pagination"></div>
+</div>
+
+<footer>
+  <div class="container footer-inner">
+    <p>CampusRent — built by students, for students.</p>
+    <p>A college project · MERN-style stack</p>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/items.js"></script>
+</body>
+</html>

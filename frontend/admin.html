@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Dashboard — CampusRent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="admin">
+<div id="navbar" class="navbar"></div>
+
+<div class="container page-head">
+  <div class="eyebrow">Platform oversight</div>
+  <h1>Admin dashboard</h1>
+  <p>Overview of everything happening on CampusRent.</p>
+</div>
+
+<div class="container" style="padding-bottom:64px;">
+  <div class="grid-3" id="statsGrid" style="margin-bottom:32px;">
+    <div class="panel"><div class="stat"><div class="num" id="statUsers">—</div><div class="label">Students registered</div></div></div>
+    <div class="panel"><div class="stat"><div class="num" id="statItems">—</div><div class="label">Items listed</div></div></div>
+    <div class="panel"><div class="stat"><div class="num" id="statRentals">—</div><div class="label">Rental requests</div></div></div>
+  </div>
+
+  <div class="dash-tabs">
+    <div class="dash-tab active" data-tab="users">Users</div>
+    <div class="dash-tab" data-tab="items">Items</div>
+    <div class="dash-tab" data-tab="rentals">Rentals</div>
+  </div>
+
+  <div id="tab-users" class="panel">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Hostel</th><th>Joined</th><th></th></tr></thead>
+        <tbody id="usersBody"><tr><td colspan="6"><div class="loader">Loading…</div></td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="tab-items" class="panel" style="display:none;">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Name</th><th>Category</th><th>Owner</th><th>Price/day</th><th>Status</th><th></th></tr></thead>
+        <tbody id="itemsBody"><tr><td colspan="6"><div class="loader">Loading…</div></td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="tab-rentals" class="panel" style="display:none;">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Item</th><th>Renter</th><th>Owner</th><th>Dates</th><th>Total</th><th>Status</th></tr></thead>
+        <tbody id="rentalsBody"><tr><td colspan="6"><div class="loader">Loading…</div></td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
